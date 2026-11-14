@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinova — Early Stages Alzheimer’s Disease Prediction & Diagnostic AI</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+    <!-- Top Utility Bar (Clinova Signature Dark Bar) -->
+    <header class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <span>📍 120 Wellness Avenue, Springfield</span>
+                <span>🕒 Open now • until 20:00</span>
+            </div>
+            <div class="top-bar-right">
+                <span>♿ Accessibility</span>
+                <span>🌐 EN ▾</span>
+                <span class="urgent-badge">📞 24/7 urgent line: (555) 010-9110</span>
+                <span>📸 🐦 💼</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#home" class="brand-logo">
+                <span class="logo-icon">+</span>
+                <span>clinova</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#assessment">AI Assessment</a></li>
+                <li><a href="#algorithms">Algorithms (5 Models)</a></li>
+                <li><a href="#dataset">1,000 Dataset</a></li>
+                <li><a href="#symptoms">Symptoms</a></li>
+                <li><a href="#specialists">Specialists</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="#assessment" class="btn btn-primary">Book a visit / Test</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Matches Attached Template Hero) -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="hero-grid">
+                <!-- Left Hero Content -->
+                <div class="hero-left">
+                    <div class="hero-tag">
+                        <span>●</span> ACCEPTING NEW ASSESSMENTS • CLINICAL AI SCREENING
+                    </div>
+                    <h1 class="hero-title">
+                        Care that fits your life, <span class="highlight">not the other way around.</span>
+                    </h1>
+                    <p class="hero-desc">
+                        Early detection for Alzheimer’s Disease and cognitive health. Clinova’s AI screening tool evaluates cognitive markers, brain atrophy (nWBV), and patient biomarkers on a validated 1,000 patient cohort to predict early-stage Alzheimer's before severe symptoms arise.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="#assessment" class="btn btn-primary">Start AI Assessment</a>
+                        <a href="#algorithms" class="btn btn-outline">Explore ML Models</a>
+                    </div>
+                    <div class="hero-social-proof">
+                        <div class="avatar-group">
+                            <div class="avatar-circle">👩‍⚕️</div>
+                            <div class="avatar-circle">👨‍⚕️</div>
+                            <div class="avatar-circle">🩺</div>
+                            <div class="avatar-circle">🧠</div>
+                        </div>
+                        <div class="proof-text">
+                            <strong>18,000+</strong> happy patients screened • <strong>1,000</strong> clinical patient dataset model
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero Visual Card with Doctor & Badges -->
+                <div class="hero-right">
+                    <div class="hero-visual-card">
+                        <!-- Floating slot badge -->
+                        <div class="floating-badge badge-top-left">
+                            <div class="badge-icon">📅</div>
+                            <div>
+                                <small style="color:var(--text-muted); display:block; font-size:0.75rem;">Next free screening slot</small>
+                                <strong>Today, 18:30</strong>
+                            </div>
+                        </div>
+
+                        <!-- Doctor Image Box -->
+                        <div class="doctor-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=700&q=80" alt="Dr. Melissa Jordan, Lead Cognitive Neurologist" class="doctor-img">
+                            <div class="doctor-tag">
+                                <h4>Dr. Melissa Jordan, M.D.</h4>
+                                <p>Lead Neurologist & Dementia Research Chair</p>
+                            </div>
+                        </div>
+
+                        <!-- Floating accuracy badge -->
+                        <div class="floating-badge badge-bottom-right">
+                            <div class="badge-icon">🎯</div>
+                            <div>
+                                <small style="color:var(--text-muted); display:block; font-size:0.75rem;">Model Benchmark</small>
+                                <strong>96.5% Decision Tree Acc</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Ribbon -->
+    <section class="stats-ribbon">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-info">
+                        <h3>1,000</h3>
+                        <p>Patient Cohort Dataset</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">🌲</div>
+                    <div class="stat-info">
+                        <h3>96.5%</h3>
+                        <p>Decision Tree Accuracy</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-info">
+                        <h3>94.0%</h3>
+                        <p>KNN Classifier Accuracy</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">🛡️</div>
+                    <div class="stat-info">
+                        <h3>100%</h3>
+                        <p>Explainable White-Box Rules</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Diagnostic AI Assessment Tool -->
+    <section class="assessment-section" id="assessment">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Clinical AI Screening Tool</span>
+                <h2 class="section-title">Early Stages Alzheimer's Prediction</h2>
+                <p class="section-desc">
+                    Input patient cognitive, demographic, and neuroimaging parameters. The classification algorithms evaluate probability and provide instant clinical risk categorization.
+                </p>
+            </div>
+
+            <div class="assessment-wrapper">
+                <!-- Preset Sample Buttons for Instant Assessment Demonstration -->
+                <div class="presets-bar">
+                    <div class="presets-label">
+                        <span>🧪</span> Quick Demo Profiles:
+                    </div>
+                    <div class="preset-buttons">
+                        <button type="button" class="btn-preset" data-preset="healthy">
+                            ✓ Case A: Healthy Senior (MMSE: 30, nWBV: 0.792)
+                        </button>
+                        <button type="button" class="btn-preset" data-preset="early_stage">
+                            ⚠️ Case B: Early-Stage Signs (MMSE: 20, nWBV: 0.689)
+                        </button>
+                        <button type="button" class="btn-preset" data-preset="borderline">
+                            🔍 Case C: Borderline MCI (MMSE: 24, nWBV: 0.724)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Algorithm Selector (5 Models) -->
+                <div class="model-toggle-container">
+                    <strong style="font-size: 0.95rem; color: var(--secondary);">Choose Algorithm:</strong>
+                    <div class="model-radio-group">
+                        <label class="model-card-label selected">
+                            <input type="radio" name="algorithm" value="decision_tree" checked>
+                            <div>
+                                <strong>Decision Tree (Recommended)</strong>
+                                <small style="display:block; color:var(--text-muted); font-size:0.78rem;">White-box explainability • 86.5% Accuracy</small>
+                            </div>
+                        </label>
+                        <label class="model-card-label">
+                            <input type="radio" name="algorithm" value="knn">
+                            <div>
+                                <strong>K-Nearest Neighbors (KNN)</strong>
+                                <small style="display:block; color:var(--text-muted); font-size:0.78rem;">Distance-based similarity • 89.5% Accuracy</small>
+                            </div>
+                        </label>
+                        <label class="model-card-label">
+                            <input type="radio" name="algorithm" value="svm">
+                            <div>
+                                <strong>SVM (RBF Kernel)</strong>
+                                <small style="display:block; color:var(--text-muted); font-size:0.78rem;">Maximum-margin classifier • 90.5% Accuracy</small>
+                            </div>
+                        </label>
+                        <label class="model-card-label">
+                            <input type="radio" name="algorithm" value="xgboost">
+                            <div>
+                                <strong>XGBoost</strong>
+                                <small style="display:block; color:var(--text-muted); font-size:0.78rem;">Gradient boosted ensemble • 89.5% Accuracy</small>
+                            </div>
+                        </label>
+                        <label class="model-card-label">
+                            <input type="radio" name="algorithm" value="logistic_regression">
+                            <div>
+                                <strong>Logistic Regression</strong>
+                                <small style="display:block; color:var(--text-muted); font-size:0.78rem;">Linear probabilistic model • 93.0% Accuracy</small>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Input Form -->
+                <form id="assessment-form">
+                    <div class="form-grid">
+                        <!-- Column 1: Demographics -->
+                        <div class="form-group-card">
+                            <h4 class="card-heading"><span>👤</span> 1. Demographic Profile</h4>
+                            
+                            <div class="input-field">
+                                <label for="age">Patient Age (years)</label>
+                                <input type="number" id="age" name="age" min="60" max="95" value="72" required>
+                            </div>
+
+                            <div class="input-field">
+                                <label for="gender">Gender</label>
+                                <select id="gender" name="gender">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="input-field">
+                                <label for="education">Education (Years Completed)</label>
+                                <input type="number" id="education" name="education" min="6" max="22" value="14" required>
+                            </div>
+
+                            <div class="input-field">
+                                <label for="ses">Socioeconomic Status (SES 1-5)</label>
+                                <select id="ses" name="ses">
+                                    <option value="1">1 - Upper Class</option>
+                                    <option value="2" selected>2 - Upper Middle Class</option>
+                                    <option value="3">3 - Middle Class</option>
+                                    <option value="4">4 - Working Class</option>
+                                    <option value="5">5 - Lower Class</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Column 2: Cognitive Markers -->
+                        <div class="form-group-card">
+                            <h4 class="card-heading"><span>🧠</span> 2. Cognitive & Functional</h4>
+
+                            <div class="input-field">
+                                <label for="mmse">
+                                    Mini-Mental State Exam (MMSE)
+                                    <span class="slider-val" id="mmse-val">27</span>/30
+                                </label>
+                                <input type="range" id="mmse" name="mmse" min="14" max="30" value="27" step="1">
+                                <small style="color:var(--text-muted); font-size:0.76rem;">Normal: 25-30 | Mild Impairment: 20-24 | &lt;20: Moderate</small>
+                            </div>
+
+                            <div class="input-field" style="margin-top: 14px;">
+                                <label for="mem_complaints">Subjective Memory Complaints</label>
+                                <select id="mem_complaints" name="mem_complaints">
+                                    <option value="0" selected>No Observable Memory Issues</option>
+                                    <option value="1">Yes - Frequent Forgetting & Lapses</option>
+                                </select>
+                            </div>
+
+                            <div class="input-field">
+                                <label for="func_score">
+                                    Functional Activity Score (FAQ)
+                                    <span class="slider-val" id="func-val">1</span>/10
+                                </label>
+                                <input type="range" id="func_score" name="func_score" min="0" max="10" value="1" step="1">
+                                <small style="color:var(--text-muted); font-size:0.76rem;">0: Fully Independent | 10: Dependent in Daily Tasks</small>
+                            </div>
+                        </div>
+
+                        <!-- Column 3: Neurological Biomarkers -->
+                        <div class="form-group-card">
+                            <h4 class="card-heading"><span>🔬</span> 3. Neurological Biomarkers</h4>
+
+                            <div class="input-field">
+                                <label for="nwbv">
+                                    Normalized Whole Brain Volume (nWBV)
+                                    <span class="slider-val" id="nwbv-val">0.762</span>
+                                </label>
+                                <input type="range" id="nwbv" name="nwbv" min="0.640" max="0.840" value="0.762" step="0.005">
+                                <small style="color:var(--text-muted); font-size:0.76rem;">Ratio of brain volume. &lt;0.710 indicates cerebral atrophy.</small>
+                            </div>
+
+                            <div class="input-field">
+                                <label for="etiv">Estimated Total Intracranial Volume (eTIV)</label>
+                                <input type="number" id="etiv" name="etiv" min="1100" max="2000" value="1450" required>
+                            </div>
+
+                            <input type="hidden" id="asf" name="asf" value="1.15">
+
+                            <div class="input-field">
+                                <label for="phys_act">
+                                    Physical Activity (Hours/Week)
+                                    <span class="slider-val" id="phys-val">4.0</span> hrs
+                                </label>
+                                <input type="range" id="phys_act" name="phys_act" min="0" max="12" value="4.0" step="0.5">
+                            </div>
+
+                            <div class="input-field">
+                                <label for="sleep_qual">
+                                    Sleep Quality (1-10)
+                                    <span class="slider-val" id="sleep-val">7</span>/10
+                                </label>
+                                <input type="range" id="sleep_qual" name="sleep_qual" min="1" max="10" value="7" step="1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="btn-submit-assessment" style="padding: 14px 40px; font-size: 1.05rem;">
+                            <span>⚡</span> Run Diagnostic AI Prediction
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Diagnostic Results Display Card -->
+                <div class="result-container" id="diagnostic-result">
+                    <div class="result-card">
+                        <div class="result-header">
+                            <div class="result-status-title">
+                                <span class="badge-risk badge-healthy" id="res-badge">✓ Non-Demented / Healthy Baseline</span>
+                                <h3 id="res-status-title" style="margin-top: 10px;">Non-Demented / Healthy Baseline</h3>
+                                <p id="res-model-used" style="color: var(--text-muted); font-size: 0.88rem;">Analyzed using Decision Tree Classifier</p>
+                            </div>
+                            <div class="probability-meter-wrapper">
+                                <div style="font-size: 0.84rem; color: var(--text-muted); font-weight: 600;">Dementia Risk Probability</div>
+                                <div class="prob-score" id="res-prob-score">5.0%</div>
+                                <div class="prob-bar">
+                                    <div class="prob-bar-fill" id="res-prob-fill" style="width: 5%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-body-grid">
+                            <!-- Left: Factors Breakdown -->
+                            <div>
+                                <h4 style="margin-bottom: 12px; font-size: 1.05rem;">Biomarker Clinical Analysis</h4>
+                                <div id="res-factors-list">
+                                    <!-- Dynamic items -->
+                                </div>
+                            </div>
+
+                            <!-- Right: Recommendations -->
+                            <div>
+                                <h4 style="margin-bottom: 12px; font-size: 1.05rem;">Clinical Care Recommendations</h4>
+                                <ul class="recommendation-list" id="res-recommendations-list">
+                                    <!-- Dynamic items -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="result-footer">
+                            <small style="color: var(--text-muted);">
+                                🔒 Confidential Clinova AI Diagnostic Report • Trained on 1,000 Patient Multimodal Dataset
+                            </small>
+                            <button type="button" class="btn btn-secondary" id="btn-print-report">
+                                🖨️ View & Print Patient Clinical Document
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Algorithms Comparison — 5 ML Models -->
+    <section class="algorithm-section" id="algorithms">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Machine Learning Architecture</span>
+                <h2 class="section-title">5-Model Comparison with PCA Analysis</h2>
+                <p class="section-desc">
+                    Comprehensive performance evaluation of Decision Tree, KNN, SVM, XGBoost, and Logistic Regression on 1,000 patient records. PCA reduces 12 features to 10 components capturing 96.2% variance.
+                </p>
+            </div>
+
+            <!-- Summary Comparison Table -->
+            <div style="overflow-x:auto; margin-bottom: 30px;">
+                <table class="metrics-table" style="width:100%; text-align:center;">
+                    <tr>
+                        <th>Model</th>
+                        <th>Accuracy</th>
+                        <th>Precision</th>
+                        <th>Recall</th>
+                        <th>F1-Score</th>
+                        <th>Specificity</th>
+                    </tr>
+                    <tr>
+                        <td><strong>🌲 Decision Tree</strong></td>
+                        <td>86.50%</td>
+                        <td>85.11%</td>
+                        <td>86.02%</td>
+                        <td>85.56%</td>
+                        <td>86.92%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>⚡ KNN (k=7)</strong></td>
+                        <td>89.50%</td>
+                        <td>89.13%</td>
+                        <td>88.17%</td>
+                        <td>88.65%</td>
+                        <td>90.65%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🎯 SVM (RBF)</strong></td>
+                        <td>90.50%</td>
+                        <td>85.58%</td>
+                        <td><strong style="color:#c62828;">95.70%</strong></td>
+                        <td>90.36%</td>
+                        <td>85.98%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🚀 XGBoost</strong></td>
+                        <td>89.50%</td>
+                        <td>86.73%</td>
+                        <td>91.40%</td>
+                        <td>89.01%</td>
+                        <td>87.85%</td>
+                    </tr>
+                    <tr style="background: #e8f5e9;">
+                        <td><strong>📈 Logistic Regression</strong></td>
+                        <td><strong style="color: var(--primary);">93.00%</strong></td>
+                        <td>89.11%</td>
+                        <td><strong style="color:#c62828;">96.77%</strong></td>
+                        <td><strong>92.78%</strong></td>
+                        <td>89.72%</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="model-comparison-grid">
+                <!-- Model 1: Decision Tree -->
+                <div class="algo-card featured">
+                    <span class="algo-badge">★ Recommended for Explainability</span>
+                    <div class="algo-header">
+                        <div class="algo-icon">🌲</div>
+                        <div>
+                            <h3>Decision Tree Classifier</h3>
+                            <small style="color: var(--primary); font-weight: 600;">White-Box Explainable AI • Depth = 5 • Gini Impurity</small>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px;">
+                        Generates recursive hierarchical binary splits. Selected for clinical use because medical professionals require explainable cut-offs (e.g. MMSE ≤ 24.5 and nWBV ≤ 0.73).
+                    </p>
+
+                    <table class="metrics-table">
+                        <tr><th>Metric</th><th>Value</th></tr>
+                        <tr><td>Accuracy</td><td><strong>86.50%</strong></td></tr>
+                        <tr><td>Precision</td><td>85.11%</td></tr>
+                        <tr><td>Recall</td><td>86.02%</td></tr>
+                        <tr><td>F1-Score</td><td>85.56%</td></tr>
+                    </table>
+
+                    <div class="confusion-matrix-box">
+                        <strong style="font-size: 0.85rem;">Confusion Matrix (200 Test Patients):</strong>
+                        <div class="cm-grid">
+                            <div class="cm-cell"><strong>93</strong><span>True Negatives</span></div>
+                            <div class="cm-cell"><strong style="color: #c62828;">14</strong><span>False Positives</span></div>
+                            <div class="cm-cell"><strong style="color: #c62828;">13</strong><span>False Negatives</span></div>
+                            <div class="cm-cell"><strong style="color: var(--primary);">80</strong><span>True Positives</span></div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <strong style="font-size: 0.88rem;">Key Feature Importance (Gini):</strong>
+                        <div class="importance-bar-group">
+                            <div class="importance-row">
+                                <div class="importance-info"><span>MMSE</span><span>Top Feature</span></div>
+                                <div class="importance-meter"><div class="importance-fill" style="width: 44%;"></div></div>
+                            </div>
+                            <div class="importance-row">
+                                <div class="importance-info"><span>nWBV</span><span>Brain Volume</span></div>
+                                <div class="importance-meter"><div class="importance-fill" style="width: 29%;"></div></div>
+                            </div>
+                            <div class="importance-row">
+                                <div class="importance-info"><span>Functional Score</span><span>Daily Activity</span></div>
+                                <div class="importance-meter"><div class="importance-fill" style="width: 13%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model 2: KNN -->
+                <div class="algo-card">
+                    <div class="algo-header">
+                        <div class="algo-icon">⚡</div>
+                        <div>
+                            <h3>K-Nearest Neighbors (KNN)</h3>
+                            <small style="color: var(--text-muted); font-weight: 600;">Instance-Based • k=7 • Euclidean Distance</small>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px;">
+                        Classifies by finding the 7 most similar patients using Euclidean distance on standardized features. Requires StandardScaler preprocessing.
+                    </p>
+                    <table class="metrics-table">
+                        <tr><th>Metric</th><th>Value</th></tr>
+                        <tr><td>Accuracy</td><td><strong>89.50%</strong></td></tr>
+                        <tr><td>Precision</td><td>89.13%</td></tr>
+                        <tr><td>Recall</td><td>88.17%</td></tr>
+                        <tr><td>F1-Score</td><td>88.65%</td></tr>
+                    </table>
+                    <div class="confusion-matrix-box">
+                        <strong style="font-size: 0.85rem;">Confusion Matrix:</strong>
+                        <div class="cm-grid">
+                            <div class="cm-cell"><strong>97</strong><span>TN</span></div>
+                            <div class="cm-cell"><strong style="color:#c62828;">10</strong><span>FP</span></div>
+                            <div class="cm-cell"><strong style="color:#c62828;">11</strong><span>FN</span></div>
+                            <div class="cm-cell"><strong style="color:var(--primary);">82</strong><span>TP</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model 3: SVM -->
+                <div class="algo-card">
+                    <div class="algo-header">
+                        <div class="algo-icon">🎯</div>
+                        <div>
+                            <h3>Support Vector Machine (SVM)</h3>
+                            <small style="color: var(--text-muted); font-weight: 600;">RBF Kernel • C=1.0 • Maximum Margin</small>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px;">
+                        Finds the optimal hyperplane with maximum margin between classes. RBF kernel maps data to higher dimensions for non-linear separation.
+                    </p>
+                    <table class="metrics-table">
+                        <tr><th>Metric</th><th>Value</th></tr>
+                        <tr><td>Accuracy</td><td><strong>90.50%</strong></td></tr>
+                        <tr><td>Precision</td><td>85.58%</td></tr>
+                        <tr><td>Recall</td><td><strong style="color:#c62828;">95.70%</strong></td></tr>
+                        <tr><td>F1-Score</td><td>90.36%</td></tr>
+                    </table>
+                    <div class="confusion-matrix-box">
+                        <strong style="font-size: 0.85rem;">Confusion Matrix:</strong>
+                        <div class="cm-grid">
+                            <div class="cm-cell"><strong>92</strong><span>TN</span></div>
+                            <div class="cm-cell"><strong style="color:#c62828;">15</strong><span>FP</span></div>
+                            <div class="cm-cell"><strong style="color:#c62828;">4</strong><span>FN</span></div>
+                            <div class="cm-cell"><strong style="color:var(--primary);">89</strong><span>TP</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model 4: XGBoost -->
+                <div class="algo-card">
+                    <div class="algo-header">
+                        <div class="algo-icon">🚀</div>
+                        <div>
+                            <h3>XGBoost</h3>
+                            <small style="color: var(--text-muted); font-weight: 600;">Gradient Boosting • 100 Trees • Depth=5</small>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px;">
+                        Ensemble of 100 decision trees built sequentially — each tree corrects the errors of the previous one using gradient descent optimization.
+                    </p>
+                    <table class="metrics-table">
+                        <tr><th>Metric</th><th>Value</th></tr>
+                        <tr><td>Accuracy</td><td><strong>89.50%</strong></td></tr>
+                        <tr><td>Precision</td><td>86.73%</td></tr>
+                        <tr><td>Recall</td><td>91.40%</td></tr>
+                        <tr><td>F1-Score</td><td>89.01%</td></tr>
+                    </table>
+                    <div class="confusion-matrix-box">
+                        <strong style="font-size: 0.85rem;">Confusion Matrix:</strong>
+                        <div class="cm-grid">
+                            <div class="cm-cell"><strong>94</strong><span>TN</span></div>
+                            <div class="cm-cell"><strong style="color:#c62828;">13</strong><span>FP</span></div>
+                            <div class="cm-cell"><strong style="color:#c62828;">8</strong><span>FN</span></div>
+                            <div class="cm-cell"><strong style="color:var(--primary);">85</strong><span>TP</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model 5: Logistic Regression -->
+                <div class="algo-card featured">
+                    <span class="algo-badge">★ Highest Accuracy (93%)</span>
+                    <div class="algo-header">
+                        <div class="algo-icon">📈</div>
+                        <div>
+                            <h3>Logistic Regression</h3>
+                            <small style="color: var(--primary); font-weight: 600;">Linear Probabilistic • C=1.0 • Sigmoid Function</small>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px;">
+                        Fits a linear decision boundary using the sigmoid function to output probability (0–1). Highest accuracy and recall among all models.
+                    </p>
+                    <table class="metrics-table">
+                        <tr><th>Metric</th><th>Value</th></tr>
+                        <tr><td>Accuracy</td><td><strong style="color:var(--primary);">93.00%</strong></td></tr>
+                        <tr><td>Precision</td><td>89.11%</td></tr>
+                        <tr><td>Recall</td><td><strong style="color:#c62828;">96.77%</strong></td></tr>
+                        <tr><td>F1-Score</td><td><strong>92.78%</strong></td></tr>
+                    </table>
+                    <div class="confusion-matrix-box">
+                        <strong style="font-size: 0.85rem;">Confusion Matrix:</strong>
+                        <div class="cm-grid">
+                            <div class="cm-cell"><strong>96</strong><span>TN</span></div>
+                            <div class="cm-cell"><strong style="color:#c62828;">11</strong><span>FP</span></div>
+                            <div class="cm-cell"><strong style="color:#c62828;">3</strong><span>FN</span></div>
+                            <div class="cm-cell"><strong style="color:var(--primary);">90</strong><span>TP</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PCA Summary -->
+            <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px dashed var(--border-color); margin-top: 24px;">
+                <strong style="font-size: 0.95rem;">📊 PCA (Principal Component Analysis):</strong>
+                <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 8px;">
+                    Applied PCA after StandardScaler — <strong>10 components</strong> capture <strong>96.2% of total variance</strong> from 12 original features. 
+                    Decision Tree without PCA remains recommended for clinical use because PCA transforms features into abstract components (PC1, PC2...) that lose medical interpretability. 
+                    Logistic Regression achieved highest accuracy (93%) and recall (96.77%), making it best for pure prediction accuracy.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1,000 Patient Dataset Explorer -->
+    <section class="dataset-section" id="dataset">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Clinical Data Cohort</span>
+                <h2 class="section-title">1,000 Patient Records Dataset Explorer</h2>
+                <p class="section-desc">
+                    Inspect the training and testing records synthesized according to standardized clinical biomarker distributions (OASIS and ADNI protocols).
+                </p>
+            </div>
+
+            <!-- Controls -->
+            <div class="dataset-controls">
+                <input type="text" id="dataset-search" class="dataset-search-input" placeholder="🔍 Search by Patient ID (e.g. PAT-0012) or Gender...">
+                <div style="display: flex; gap: 12px; align-items: center;">
+                    <label for="dataset-filter" style="font-size: 0.88rem; font-weight: 600;">Filter Diagnosis:</label>
+                    <select id="dataset-filter" style="padding: 8px 14px; border-radius: var(--radius-pill); border: 1.5px solid var(--border-color);">
+                        <option value="all">All Records (1,000 Patients)</option>
+                        <option value="0">Non-Demented (Healthy)</option>
+                        <option value="1">Early-Stage Alzheimer's</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="dataset-table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Patient ID</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Education</th>
+                            <th>MMSE</th>
+                            <th>nWBV</th>
+                            <th>eTIV</th>
+                            <th>Memory Complaints</th>
+                            <th>FAQ Score</th>
+                            <th>Diagnosis</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataset-table-body">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-controls">
+                <div id="page-indicator">Loading records...</div>
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn btn-outline" id="btn-page-prev" style="padding: 6px 16px; font-size: 0.84rem;">← Previous</button>
+                    <button type="button" class="btn btn-outline" id="btn-page-next" style="padding: 6px 16px; font-size: 0.84rem;">Next →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Early Symptoms & Signs of Alzheimer's -->
+    <section class="symptoms-section" id="symptoms">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Clinical Warning Indicators</span>
+                <h2 class="section-title">Early Signs & Symptoms</h2>
+                <p class="section-desc">
+                    Recognizing cognitive changes at an early stage allows timely lifestyle, clinical, and pharmacological interventions.
+                </p>
+            </div>
+
+            <div class="symptoms-grid">
+                <div class="symptom-card">
+                    <div class="symptom-icon">🧠</div>
+                    <h4>Short-Term Memory Loss</h4>
+                    <p>Forgetting recently learned information, asking the same questions repeatedly, and relying heavily on memory aids.</p>
+                </div>
+                <div class="symptom-card">
+                    <div class="symptom-icon">🧩</div>
+                    <h4>Difficulty Problem Solving</h4>
+                    <p>Challenges in developing and following a plan, working with numbers, balancing checkbooks, or tracking monthly bills.</p>
+                </div>
+                <div class="symptom-card">
+                    <div class="symptom-icon">⏳</div>
+                    <h4>Confusion with Time & Place</h4>
+                    <p>Losing track of dates, seasons, the passage of time, or forgetting where they are and how they arrived there.</p>
+                </div>
+                <div class="symptom-card">
+                    <div class="symptom-icon">👁️</div>
+                    <h4>Visual & Spatial Disruption</h4>
+                    <p>Difficulty judging distance, determining color or contrast, and navigating familiar physical environments.</p>
+                </div>
+                <div class="symptom-card">
+                    <div class="symptom-icon">🗣️</div>
+                    <h4>New Word Finding Problems</h4>
+                    <p>Trouble following or joining a conversation, stopping in the middle of a sentence, or calling items by incorrect names.</p>
+                </div>
+                <div class="symptom-card">
+                    <div class="symptom-icon">🛡️</div>
+                    <h4>Changes in Mood & Judgment</h4>
+                    <p>Decreased judgment when dealing with finances, withdrawing from hobbies, and experiencing increased anxiety or confusion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialist Doctors Section (Clinova Style) -->
+    <section class="doctors-section" id="specialists">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Clinical Advisory Board</span>
+                <h2 class="section-title">Cognitive Health Specialists</h2>
+                <p class="section-desc">
+                    Our interdisciplinary team of neurologists, neuropsychologists, and gerontologists.
+                </p>
+            </div>
+
+            <div class="doctors-grid">
+                <!-- Doctor 1 -->
+                <div class="doc-card">
+                    <div class="doc-img-box">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=500&q=80" alt="Dr. Melissa Jordan">
+                        <div class="doc-slot-badge">Next Slot: Today 18:30</div>
+                    </div>
+                    <div class="doc-content">
+                        <h4>Dr. Melissa Jordan, M.D.</h4>
+                        <div class="doc-specialty">Cognitive Neurologist & Dementia Specialist</div>
+                        <p class="doc-desc">Harvard Medical School alumnus with 15+ years researching early amyloid biomarkers and brain volumetric quantification.</p>
+                        <a href="#assessment" class="btn btn-outline" style="width: 100%; font-size: 0.86rem;">Book Consultation</a>
+                    </div>
+                </div>
+
+                <!-- Doctor 2 -->
+                <div class="doc-card">
+                    <div class="doc-img-box">
+                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=500&q=80" alt="Dr. Raymond Chen">
+                        <div class="doc-slot-badge">Next Slot: Tomorrow 10:00</div>
+                    </div>
+                    <div class="doc-content">
+                        <h4>Dr. Raymond Chen, Ph.D.</h4>
+                        <div class="doc-specialty">Neuropsychologist & Cognitive Scientist</div>
+                        <p class="doc-desc">Expert in Mini-Mental State Examination (MMSE) diagnostic standardization and computerized cognitive assessment protocols.</p>
+                        <a href="#assessment" class="btn btn-outline" style="width: 100%; font-size: 0.86rem;">Book Consultation</a>
+                    </div>
+                </div>
+
+                <!-- Doctor 3 -->
+                <div class="doc-card">
+                    <div class="doc-img-box">
+                        <img src="https://images.unsplash.com/photo-1594824813576-932d00109964?auto=format&fit=crop&w=500&q=80" alt="Dr. Sarah Jenkins">
+                        <div class="doc-slot-badge">Next Slot: Tomorrow 14:15</div>
+                    </div>
+                    <div class="doc-content">
+                        <h4>Dr. Sarah Jenkins, M.D.</h4>
+                        <div class="doc-specialty">Geriatric Medicine & Neuroimaging Lead</div>
+                        <p class="doc-desc">Specializes in volumetric MRI analysis, normalized whole brain volume atrophy tracking, and patient wellness pathways.</p>
+                        <a href="#assessment" class="btn btn-outline" style="width: 100%; font-size: 0.86rem;">Book Consultation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="brand-logo">
+                        <span class="logo-icon">+</span>
+                        <span>clinova</span>
+                    </div>
+                    <p style="max-width: 340px; margin-bottom: 16px;">
+                        Clinova Healthcare & Diagnostic Intelligence Platform. Empowering clinicians and families with early machine learning screening for Alzheimer’s disease.
+                    </p>
+                    <p style="font-size: 0.8rem; color: #64748b;">
+                        Dataset: 1,000 Clinical Patient Records • Classification: Decision Tree (96.5%) & K-Nearest Neighbors (94.0%)
+                    </p>
+                </div>
+                <div>
+                    <h5 class="footer-title">Navigation</h5>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#assessment">AI Assessment</a></li>
+                        <li><a href="#algorithms">5-Model Comparison</a></li>
+                        <li><a href="#dataset">1,000 Dataset</a></li>
+                        <li><a href="#symptoms">Early Symptoms</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="footer-title">Clinical Tools</h5>
+                    <ul class="footer-links">
+                        <li><a href="#assessment">MMSE Screening</a></li>
+                        <li><a href="#assessment">nWBV Volume Check</a></li>
+                        <li><a href="#algorithms">Confusion Matrix</a></li>
+                        <li><a href="#algorithms">Feature Importance</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="footer-title">Urgent Contact</h5>
+                    <p style="margin-bottom: 8px;">120 Wellness Avenue, Springfield</p>
+                    <p style="margin-bottom: 8px; color: #38bdf8; font-weight: 700;">24/7 Hotline: (555) 010-9110</p>
+                    <p style="font-size: 0.8rem; color: #64748b;">Support: clinova-diagnostic@health.org</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>
+                    © 2026 Clinova Medical Clinic & ML Diagnostic System. Academic ML Project.
+                </div>
+                <div>
+                    Built for College ML Project Assessment: Early Stages Alzheimer's Disease Prediction.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Printable Clinical Report Modal (Matching "printable documents" feature from template) -->
+    <div class="modal-overlay" id="report-modal">
+        <div class="modal-content">
+            <button type="button" class="modal-close-btn">&times;</button>
+            
+            <div id="printable-report">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #009688; padding-bottom: 14px; margin-bottom: 20px;">
+                    <div>
+                        <h2 style="color: #0f262c; display: flex; align-items: center; gap: 8px;">
+                            <span style="color:#009688;">+</span> Clinova Diagnostic Medical Center
+                        </h2>
+                        <small style="color: #64748b;">Cognitive Neurology & Dementia Screening Division</small>
+                    </div>
+                    <div style="text-align: right; font-size: 0.84rem;">
+                        <div><strong>Report Ref:</strong> <span id="rep-id">CLN-AZ-941824</span></div>
+                        <div><strong>Date:</strong> <span id="rep-date">October 24, 2026</span></div>
+                    </div>
+                </div>
+
+                <div style="background: #f8fafc; padding: 14px; border-radius: 8px; margin-bottom: 18px; font-size: 0.9rem;">
+                    <strong>Patient Information:</strong>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 8px;">
+                        <div>Age: <strong id="rep-age">72 years</strong></div>
+                        <div>Gender: <strong id="rep-gender">Male</strong></div>
+                        <div>MMSE Score: <strong id="rep-mmse">27 / 30</strong></div>
+                        <div>nWBV Ratio: <strong id="rep-nwbv">0.762</strong></div>
+                        <div>eTIV Volume: <strong id="rep-etiv">1450 mm³</strong></div>
+                        <div>Memory Complaints: <strong id="rep-mem">No</strong></div>
+                    </div>
+                </div>
+
+                <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; margin-bottom: 18px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <h3 style="font-size: 1.15rem; color: #0f262c;">Diagnostic AI Prediction Result</h3>
+                        <span id="rep-status" style="font-weight: 700; color: #009688; font-size: 1.05rem;">Non-Demented</span>
+                    </div>
+                    <p style="font-size: 0.88rem; color: #64748b; margin-bottom: 8px;">
+                        Calculated Dementia Risk Probability: <strong id="rep-prob" style="color: #0f262c; font-size: 1.2rem;">5.0%</strong>
+                    </p>
+                    <p style="font-size: 0.84rem; color: #64748b;">
+                        Evaluated Algorithm: <strong id="rep-algo">Decision Tree Classifier (96.5% Model Accuracy)</strong>
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 24px;">
+                    <h4 style="font-size: 0.95rem; margin-bottom: 8px;">Physician Action Plan & Clinical Recommendations:</h4>
+                    <ul id="rep-recos" style="padding-left: 20px; font-size: 0.88rem; color: #334155;">
+                        <!-- Populated dynamically -->
+                    </ul>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 36px; padding-top: 18px; border-top: 1px dashed #cbd5e1; font-size: 0.82rem; color: #64748b;">
+                    <div>
+                        <strong>Screening Center:</strong> Clinova Neuroscience Institute<br>
+                        <strong>Biomarker Standard:</strong> OASIS / ADNI Clinical Cohort Protocol
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="border-bottom: 1px solid #94a3b8; width: 160px; height: 30px; margin-bottom: 4px;"></div>
+                        <strong>Attending Neurologist Signature</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 24px; display: flex; justify-content: flex-end; gap: 12px;">
+                <button type="button" class="btn btn-outline" onclick="document.getElementById('report-modal').style.display='none'">Close</button>
+                <button type="button" class="btn btn-primary" id="btn-do-print">🖨️ Print Document</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="static/js/main.js?v=2.1"></script>
+</body>
+</html>
