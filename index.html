@@ -39,6 +39,7 @@
             <ul class="nav-links">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#assessment">AI Assessment</a></li>
+                <li><a href="#shap-dashboard">SHAP Explainability</a></li>
                 <li><a href="#algorithms">Algorithms (5 Models)</a></li>
                 <li><a href="#dataset">1,000 Dataset</a></li>
                 <li><a href="#symptoms">Symptoms</a></li>
@@ -375,6 +376,78 @@
                             </div>
                         </div>
 
+                        <!-- Individual Patient SHAP Waterfall Explanation Card -->
+                        <div class="shap-patient-card" id="shap-patient-container" style="margin-top: 25px; padding: 20px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                                <div>
+                                    <span style="display: inline-block; background: #e0f2fe; color: #0284c7; padding: 3px 10px; border-radius: 20px; font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Explainable AI • SHAP</span>
+                                    <h4 style="margin: 6px 0 2px 0; font-size: 1.15rem; color: #0f172a;">Patient SHAP Waterfall Analysis</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: #64748b;">Mathematical feature contributions explaining the Logistic Regression prediction for this specific patient.</p>
+                                </div>
+                                <div style="display: flex; gap: 15px; font-size: 0.82rem; font-weight: 600;">
+                                    <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; background: #ef4444; border-radius: 3px; display: inline-block;"></span> <span style="color: #b91c1c;">+ Risk (Positive Contribution)</span></span>
+                                    <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; background: #3b82f6; border-radius: 3px; display: inline-block;"></span> <span style="color: #1d4ed8;">- Risk (Protective / Negative)</span></span>
+                                </div>
+                            </div>
+
+                            <!-- Waterfall Baseline & Decision Function Bar -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px;">
+                                <div style="background: #ffffff; padding: 12px 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                    <div style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Baseline Value E[f(x)]</div>
+                                    <div id="shap-base-val" style="font-size: 1.25rem; font-weight: 800; color: #475569;">-0.3822</div>
+                                    <div style="font-size: 0.74rem; color: #94a3b8;">Expected log-odds across cohort</div>
+                                </div>
+                                <div style="background: #ffffff; padding: 12px 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                    <div style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Net SHAP Push (Σ φᵢ)</div>
+                                    <div id="shap-sum-val" style="font-size: 1.25rem; font-weight: 800; color: #0284c7;">-2.0165</div>
+                                    <div style="font-size: 0.74rem; color: #94a3b8;">Total biomarker influence</div>
+                                </div>
+                                <div style="background: #ffffff; padding: 12px 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                    <div style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Model Output f(x)</div>
+                                    <div id="shap-fx-val" style="font-size: 1.25rem; font-weight: 800; color: #0f172a;">-2.3986</div>
+                                    <div style="font-size: 0.74rem; color: #94a3b8;">Logit score = E[f(x)] + Σ φᵢ</div>
+                                </div>
+                                <div style="background: #ffffff; padding: 12px 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                    <div style="font-size: 0.78rem; color: #64748b; font-weight: 600;">Calibrated Risk Probability</div>
+                                    <div id="shap-prob-val" style="font-size: 1.25rem; font-weight: 800; color: #059669;">8.3%</div>
+                                    <div style="font-size: 0.74rem; color: #94a3b8;">P(At-Risk) = 1 / (1 + e⁻ᶠ⁽ˣ⁾)</div>
+                                </div>
+                            </div>
+
+                            <!-- Interactive Interactive Waterfall Chart -->
+                            <div style="background: #ffffff; padding: 20px; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                    <h5 style="margin: 0; font-size: 0.95rem; color: #1e293b;">Interactive SHAP Waterfall Chart</h5>
+                                    <span style="font-size: 0.78rem; color: #64748b;">Values indicate log-odds shift from population baseline</span>
+                                </div>
+                                <div id="shap-waterfall-chart" style="display: flex; flex-direction: column; gap: 8px;">
+                                    <!-- Dynamic SHAP Waterfall Bars -->
+                                </div>
+                            </div>
+
+                            <!-- Top 5 Contributing Factors Table with Clinical Narrative -->
+                            <div style="background: #ffffff; padding: 20px; border-radius: 10px; border: 1px solid #e2e8f0;">
+                                <h5 style="margin: 0 0 12px 0; font-size: 0.95rem; color: #1e293b;">Top 5 Influential Biomarkers for this Patient</h5>
+                                <div style="overflow-x: auto;">
+                                    <table style="width: 100%; border-collapse: collapse; font-size: 0.86rem; text-align: left;">
+                                        <thead>
+                                            <tr style="border-bottom: 2px solid #e2e8f0; color: #475569;">
+                                                <th style="padding: 8px 10px;">Rank</th>
+                                                <th style="padding: 8px 10px;">Biomarker</th>
+                                                <th style="padding: 8px 10px;">Patient Value</th>
+                                                <th style="padding: 8px 10px;">SHAP Value (φᵢ)</th>
+                                                <th style="padding: 8px 10px;">Impact Direction</th>
+                                                <th style="padding: 8px 10px;">Clinical Explanation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="shap-top5-tbody">
+                                            <!-- Dynamic Rows -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="result-footer">
                             <small style="color: var(--text-muted);">
                                 🔒 Confidential Clinova AI Diagnostic Report • Trained on 1,000 Patient Multimodal Dataset
@@ -387,6 +460,149 @@
                 </div>
 
             </div>
+        </div>
+    </section>
+
+    <!-- SHAP Explainability Dashboard Section -->
+    <section class="shap-dashboard-section" id="shap-dashboard" style="padding: 70px 0; background: #f8fafc; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;">
+        <div class="container">
+            <div class="section-header" style="text-align: center; max-width: 800px; margin: 0 auto 50px auto;">
+                <span class="section-tag" style="background: #e0f2fe; color: #0284c7; padding: 4px 14px; border-radius: 20px; font-weight: 700; font-size: 0.82rem; text-transform: uppercase;">Interpretability & XAI Architecture</span>
+                <h2 class="section-title" style="margin-top: 10px; font-size: 2.2rem; color: #0f172a;">SHAP Explainability for Logistic Regression</h2>
+                <p class="section-desc" style="color: #64748b; font-size: 1.05rem;">
+                    Rigorous game-theoretic attribution (Shapley Additive exPlanations) calculated on the highest-performing model (93.00% Accuracy, 96.77% Recall) across 1,000 patient records.
+                </p>
+            </div>
+
+            <!-- Global SHAP Visualizations Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); gap: 30px; margin-bottom: 40px;">
+                
+                <!-- Card 1: SHAP Summary Beeswarm Plot -->
+                <div style="background: #ffffff; border-radius: 16px; padding: 25px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                        <div>
+                            <span style="font-size: 0.78rem; font-weight: 700; color: #0284c7; text-transform: uppercase;">Global Distribution</span>
+                            <h3 style="font-size: 1.25rem; margin: 4px 0 6px 0; color: #0f172a;">SHAP Summary (Beeswarm) Plot</h3>
+                            <p style="font-size: 0.85rem; color: #64748b; margin: 0;">Shows magnitude, direction, and density of feature impacts across all 1,000 patients.</p>
+                        </div>
+                    </div>
+                    <div style="text-align: center; background: #fdfdfd; padding: 10px; border-radius: 10px; border: 1px solid #f1f5f9;">
+                        <img src="static/images/shap/shap_summary_beeswarm.png" alt="SHAP Summary Beeswarm Plot" style="width: 100%; height: auto; border-radius: 8px; max-height: 420px; object-fit: contain;">
+                    </div>
+                    <div style="margin-top: 15px; font-size: 0.84rem; color: #475569; line-height: 1.5; background: #f8fafc; padding: 12px; border-radius: 8px;">
+                        <strong>Key Insight:</strong> High values of <code>nWBV</code> and <code>MMSE</code> (red dots) shift SHAP far to the left (negative, protective against dementia). Conversely, high <code>Functional_Score</code> and presence of <code>Memory_Complaints</code> strongly push SHAP to the right (positive, elevating risk).
+                    </div>
+                </div>
+
+                <!-- Card 2: SHAP Global Feature Importance Bar Plot -->
+                <div style="background: #ffffff; border-radius: 16px; padding: 25px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                        <div>
+                            <span style="font-size: 0.78rem; font-weight: 700; color: #0284c7; text-transform: uppercase;">Biomarker Ranking</span>
+                            <h3 style="font-size: 1.25rem; margin: 4px 0 6px 0; color: #0f172a;">Mean Absolute SHAP Importance</h3>
+                            <p style="font-size: 0.85rem; color: #64748b; margin: 0;">Ranking features by mean absolute SHAP value: E[|φᵢ|] on the positive class.</p>
+                        </div>
+                    </div>
+                    <div style="text-align: center; background: #fdfdfd; padding: 10px; border-radius: 10px; border: 1px solid #f1f5f9;">
+                        <img src="static/images/shap/shap_bar_importance.png" alt="SHAP Feature Importance Bar Plot" style="width: 100%; height: auto; border-radius: 8px; max-height: 420px; object-fit: contain;">
+                    </div>
+                    <div style="margin-top: 15px; font-size: 0.84rem; color: #475569; line-height: 1.5; background: #f8fafc; padding: 12px; border-radius: 8px;">
+                        <strong>Clinical Validation:</strong> Objective cerebral volume ratio (<code>nWBV</code>: +2.38) and cognitive test (<code>MMSE</code>: +1.36) overwhelmingly dominate model predictions, perfectly aligning with clinical neurology literature.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Global Feature Attribution Reference Table -->
+            <div style="background: #ffffff; border-radius: 16px; padding: 25px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                    <div>
+                        <h4 style="margin: 0; font-size: 1.15rem; color: #0f172a;">Global SHAP Attribution & Model Parameters</h4>
+                        <p style="margin: 4px 0 0 0; font-size: 0.85rem; color: #64748b;">Direct comparison between trained Logistic Regression coefficients and global mean absolute SHAP values.</p>
+                    </div>
+                    <span style="background: #f1f5f9; color: #334155; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Cohort Baseline E[f(x)] = -0.3822</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left;">
+                        <thead>
+                            <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569;">
+                                <th style="padding: 10px 14px;">Rank</th>
+                                <th style="padding: 10px 14px;">Biomarker Feature</th>
+                                <th style="padding: 10px 14px;">Mean |SHAP|</th>
+                                <th style="padding: 10px 14px;">Standardized Weight (wᵢ)</th>
+                                <th style="padding: 10px 14px;">Effect on Alzheimer's Risk</th>
+                                <th style="padding: 10px 14px;">Clinical Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td style="padding: 10px 14px; font-weight: 700;">#1</td>
+                                <td style="padding: 10px 14px; font-weight: 600; color: #0284c7;">nWBV (Normalized Brain Volume)</td>
+                                <td style="padding: 10px 14px; font-weight: 700;">2.3789</td>
+                                <td style="padding: 10px 14px; color: #2563eb; font-weight: 600;">-2.9359</td>
+                                <td style="padding: 10px 14px;"><span style="color: #2563eb; background: #eff6ff; padding: 3px 8px; border-radius: 4px; font-weight: 600;">Protective when High</span></td>
+                                <td style="padding: 10px 14px; color: #64748b;">Structural cerebral cortex atrophy indicator via MRI</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td style="padding: 10px 14px; font-weight: 700;">#2</td>
+                                <td style="padding: 10px 14px; font-weight: 600; color: #0284c7;">MMSE (Mini-Mental State Exam)</td>
+                                <td style="padding: 10px 14px; font-weight: 700;">1.3627</td>
+                                <td style="padding: 10px 14px; color: #2563eb; font-weight: 600;">-1.6401</td>
+                                <td style="padding: 10px 14px;"><span style="color: #2563eb; background: #eff6ff; padding: 3px 8px; border-radius: 4px; font-weight: 600;">Protective when High</span></td>
+                                <td style="padding: 10px 14px; color: #64748b;">Quantifies memory, orientation, and mental calculation (0-30)</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td style="padding: 10px 14px; font-weight: 700;">#3</td>
+                                <td style="padding: 10px 14px; font-weight: 600; color: #0284c7;">Memory_Complaints</td>
+                                <td style="padding: 10px 14px; font-weight: 700;">1.2665</td>
+                                <td style="padding: 10px 14px; color: #dc2626; font-weight: 600;">+1.2616</td>
+                                <td style="padding: 10px 14px;"><span style="color: #dc2626; background: #fef2f2; padding: 3px 8px; border-radius: 4px; font-weight: 600;">Risk Factor when Present</span></td>
+                                <td style="padding: 10px 14px; color: #64748b;">Subjective patient/caregiver reported memory lapses</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td style="padding: 10px 14px; font-weight: 700;">#4</td>
+                                <td style="padding: 10px 14px; font-weight: 600; color: #0284c7;">Functional_Score (ADL Difficulty)</td>
+                                <td style="padding: 10px 14px; font-weight: 700;">0.9060</td>
+                                <td style="padding: 10px 14px; color: #dc2626; font-weight: 600;">+1.1271</td>
+                                <td style="padding: 10px 14px;"><span style="color: #dc2626; background: #fef2f2; padding: 3px 8px; border-radius: 4px; font-weight: 600;">Risk Factor when High</span></td>
+                                <td style="padding: 10px 14px; color: #64748b;">Loss of daily living independence (medications, bills, driving)</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td style="padding: 10px 14px; font-weight: 700;">#5</td>
+                                <td style="padding: 10px 14px; font-weight: 600; color: #0284c7;">Age</td>
+                                <td style="padding: 10px 14px; font-weight: 700;">0.4304</td>
+                                <td style="padding: 10px 14px; color: #dc2626; font-weight: 600;">+0.5226</td>
+                                <td style="padding: 10px 14px;"><span style="color: #dc2626; background: #fef2f2; padding: 3px 8px; border-radius: 4px; font-weight: 600;">Risk Factor when High</span></td>
+                                <td style="padding: 10px 14px; color: #64748b;">Primary non-modifiable demographic risk indicator</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td style="padding: 10px 14px; font-weight: 700;">#6</td>
+                                <td style="padding: 10px 14px; font-weight: 600;">Gender_Code</td>
+                                <td style="padding: 10px 14px;">0.2337</td>
+                                <td style="padding: 10px 14px; color: #dc2626;">+0.2338</td>
+                                <td style="padding: 10px 14px;"><span style="color: #64748b;">Minor Demographic Shift</span></td>
+                                <td style="padding: 10px 14px; color: #64748b;">Male (1) vs Female (0) encoding</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #f1f5f9;">
+                                <td style="padding: 10px 14px; font-weight: 700;">#7</td>
+                                <td style="padding: 10px 14px; font-weight: 600;">Education_Years</td>
+                                <td style="padding: 10px 14px;">0.1980</td>
+                                <td style="padding: 10px 14px; color: #2563eb;">-0.2454</td>
+                                <td style="padding: 10px 14px;"><span style="color: #2563eb; background: #eff6ff; padding: 3px 8px; border-radius: 4px; font-weight: 600;">Protective when High</span></td>
+                                <td style="padding: 10px 14px; color: #64748b;">Cognitive reserve proxy (formal education completed)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 14px; font-weight: 700;">#8-12</td>
+                                <td style="padding: 10px 14px; font-weight: 600;">eTIV, Sleep_Quality, Physical_Activity, SES, ASF</td>
+                                <td style="padding: 10px 14px;">&lt; 0.15</td>
+                                <td style="padding: 10px 14px; color: #64748b;">± 0.01 - 0.17</td>
+                                <td style="padding: 10px 14px;"><span style="color: #64748b;">Minor Contributions</span></td>
+                                <td style="padding: 10px 14px; color: #64748b;">Lifestyle, secondary skull volume, and socioeconomic proxies</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </section>
 

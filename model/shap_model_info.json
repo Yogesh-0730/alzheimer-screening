@@ -1,0 +1,123 @@
+{
+    "base_value": -0.38215908138516885,
+    "feature_names": [
+        "Age",
+        "Gender_Code",
+        "Education_Years",
+        "SES",
+        "MMSE",
+        "eTIV",
+        "nWBV",
+        "ASF",
+        "Memory_Complaints",
+        "Functional_Score",
+        "Physical_Activity",
+        "Sleep_Quality"
+    ],
+    "scaler_means": {
+        "Age": 74.32875,
+        "Gender_Code": 0.49625,
+        "Education_Years": 14.3525,
+        "SES": 2.52375,
+        "MMSE": 26.77,
+        "eTIV": 1473.01625,
+        "nWBV": 0.7362237500000001,
+        "ASF": 1.12774125,
+        "Memory_Complaints": 0.45625,
+        "Functional_Score": 2.03875,
+        "Physical_Activity": 3.43425,
+        "Sleep_Quality": 6.5675
+    },
+    "scaler_scales": {
+        "Age": 7.580611679640371,
+        "Gender_Code": 0.49998593730224056,
+        "Education_Years": 3.173837385563413,
+        "SES": 1.0790903287028384,
+        "MMSE": 2.848174854182938,
+        "eTIV": 136.94584143352984,
+        "nWBV": 0.04564056513604428,
+        "ASF": 0.1177862016470414,
+        "Memory_Complaints": 0.49808225977241943,
+        "Functional_Score": 1.8137663679481986,
+        "Physical_Activity": 1.7710101460748326,
+        "Sleep_Quality": 1.8160241600815779
+    },
+    "coefficients": {
+        "Age": 0.5226349777768571,
+        "Gender_Code": 0.233763326193359,
+        "Education_Years": -0.24538125227601848,
+        "SES": -0.0129998150669345,
+        "MMSE": -1.6401472031137696,
+        "eTIV": -0.17677827405463223,
+        "nWBV": -2.9358906400449327,
+        "ASF": 0.00919900111602525,
+        "Memory_Complaints": 1.2616480561297747,
+        "Functional_Score": 1.1271151286765222,
+        "Physical_Activity": -0.04562334028755329,
+        "Sleep_Quality": 0.057106851109096385
+    },
+    "masker_means": {
+        "Age": -0.1990274747949597,
+        "Gender_Code": -0.19250541429091658,
+        "Education_Years": 0.08428283100349042,
+        "SES": 0.00579191549933814,
+        "MMSE": -0.07373142828347971,
+        "eTIV": -0.04407764366419075,
+        "nWBV": 0.1322562501583238,
+        "ASF": 0.0869265657337483,
+        "Memory_Complaints": 0.08783689670053697,
+        "Functional_Score": 0.03376950917294194,
+        "Physical_Activity": 0.03994895238562372,
+        "Sleep_Quality": -0.009636435673418533
+    },
+    "global_importance": [
+        {
+            "feature": "nWBV",
+            "mean_abs_shap": 2.3789
+        },
+        {
+            "feature": "MMSE",
+            "mean_abs_shap": 1.3627
+        },
+        {
+            "feature": "Memory_Complaints",
+            "mean_abs_shap": 1.2665
+        },
+        {
+            "feature": "Functional_Score",
+            "mean_abs_shap": 0.906
+        },
+        {
+            "feature": "Age",
+            "mean_abs_shap": 0.4304
+        },
+        {
+            "feature": "Gender_Code",
+            "mean_abs_shap": 0.2337
+        },
+        {
+            "feature": "Education_Years",
+            "mean_abs_shap": 0.198
+        },
+        {
+            "feature": "eTIV",
+            "mean_abs_shap": 0.1428
+        },
+        {
+            "feature": "Sleep_Quality",
+            "mean_abs_shap": 0.0463
+        },
+        {
+            "feature": "Physical_Activity",
+            "mean_abs_shap": 0.0376
+        },
+        {
+            "feature": "SES",
+            "mean_abs_shap": 0.0112
+        },
+        {
+            "feature": "ASF",
+            "mean_abs_shap": 0.0075
+        }
+    ]
+}

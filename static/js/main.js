@@ -371,8 +371,284 @@ function renderResult(data, inputPayload) {
         recoList.appendChild(li);
     });
 
+    // Render SHAP Patient Waterfall Explanation
+    renderShapPatientExplanation(inputPayload);
+
     resultContainer.style.display = 'block';
     resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ============================================================================
+// SHAP (SHapley Additive exPlanations) Engine for Logistic Regression
+// ============================================================================
+const SHAP_CONFIG = {
+    base_value: -0.38215908138516885,
+    intercept: -0.10012351492594602,
+    feature_names: [
+        'Age', 'Gender_Code', 'Education_Years', 'SES', 'MMSE',
+        'eTIV', 'nWBV', 'ASF', 'Memory_Complaints',
+        'Functional_Score', 'Physical_Activity', 'Sleep_Quality'
+    ],
+    scaler_means: {
+        Age: 74.32875,
+        Gender_Code: 0.49625,
+        Education_Years: 14.3525,
+        SES: 2.52375,
+        MMSE: 26.77,
+        eTIV: 1473.01625,
+        nWBV: 0.73622375,
+        ASF: 1.12774125,
+        Memory_Complaints: 0.45625,
+        Functional_Score: 2.03875,
+        Physical_Activity: 3.43425,
+        Sleep_Quality: 6.5675
+    },
+    scaler_scales: {
+        Age: 7.58061168,
+        Gender_Code: 0.49998594,
+        Education_Years: 3.17383739,
+        SES: 1.07909033,
+        MMSE: 2.84817485,
+        eTIV: 136.94584143,
+        nWBV: 0.04564057,
+        ASF: 0.1177862,
+        Memory_Complaints: 0.49808226,
+        Functional_Score: 1.81376637,
+        Physical_Activity: 1.77101015,
+        Sleep_Quality: 1.81602416
+    },
+    coefficients: {
+        Age: 0.52263498,
+        Gender_Code: 0.23376333,
+        Education_Years: -0.24538125,
+        SES: -0.01299982,
+        MMSE: -1.6401472,
+        eTIV: -0.17677827,
+        nWBV: -2.93589064,
+        ASF: 0.009199,
+        Memory_Complaints: 1.26164806,
+        Functional_Score: 1.12711513,
+        Physical_Activity: -0.04562334,
+        Sleep_Quality: 0.05710685
+    },
+    masker_means: {
+        Age: -0.00854153,
+        Gender_Code: 0.00550015,
+        Education_Years: -0.01370581,
+        SES: 0.01413227,
+        MMSE: -0.01404408,
+        eTIV: -0.00691697,
+        nWBV: 0.00031222,
+        ASF: 0.00645025,
+        Memory_Complaints: 0.01555968,
+        Functional_Score: -0.00537555,
+        Physical_Activity: 0.00889323,
+        Sleep_Quality: -0.01899754
+    },
+    feature_labels: {
+        Age: 'Age (Years)',
+        Gender_Code: 'Gender',
+        Education_Years: 'Education (Years)',
+        SES: 'Socioeconomic Status (SES)',
+        MMSE: 'Mini-Mental State Exam (MMSE)',
+        eTIV: 'Intracranial Volume (eTIV)',
+        nWBV: 'Brain Volume Ratio (nWBV)',
+        ASF: 'Atlas Scaling Factor (ASF)',
+        Memory_Complaints: 'Subjective Memory Complaints',
+        Functional_Score: 'Functional Score (ADL)',
+        Physical_Activity: 'Physical Activity (hrs/wk)',
+        Sleep_Quality: 'Sleep Quality (1-10)'
+    }
+};
+
+function calculateShapValues(patient) {
+    const raw = {
+        Age: parseFloat(patient.age),
+        Gender_Code: (patient.gender === 'Male' || patient.gender === 1) ? 1 : 0,
+        Education_Years: parseFloat(patient.education_years),
+        SES: parseFloat(patient.ses),
+        MMSE: parseFloat(patient.mmse),
+        eTIV: parseFloat(patient.etiv),
+        nWBV: parseFloat(patient.nwbv),
+        ASF: parseFloat(patient.asf),
+        Memory_Complaints: parseInt(patient.memory_complaints) === 1 ? 1 : 0,
+        Functional_Score: parseFloat(patient.functional_score),
+        Physical_Activity: parseFloat(patient.physical_activity),
+        Sleep_Quality: parseFloat(patient.sleep_quality)
+    };
+
+    const contributions = [];
+    let sumShap = 0.0;
+
+    SHAP_CONFIG.feature_names.forEach(name => {
+        const x_raw = raw[name];
+        const mean = SHAP_CONFIG.scaler_means[name];
+        const scale = SHAP_CONFIG.scaler_scales[name];
+        const x_scaled = (x_raw - mean) / scale;
+        const coef = SHAP_CONFIG.coefficients[name];
+        const mask_m = SHAP_CONFIG.masker_means[name];
+
+        // Exact SHAP value for Linear Explainer on background masker
+        const shap_val = coef * (x_scaled - mask_m);
+        sumShap += shap_val;
+
+        let displayVal = x_raw;
+        if (name === 'Gender_Code') displayVal = raw.Gender_Code === 1 ? 'Male' : 'Female';
+        if (name === 'Memory_Complaints') displayVal = raw.Memory_Complaints === 1 ? 'Present (1)' : 'Absent (0)';
+        if (name === 'nWBV') displayVal = raw.nWBV.toFixed(3);
+
+        contributions.push({
+            name: name,
+            label: SHAP_CONFIG.feature_labels[name] || name,
+            raw_value: x_raw,
+            display_value: displayVal,
+            scaled_value: x_scaled,
+            coefficient: coef,
+            shap_value: shap_val,
+            abs_shap: Math.abs(shap_val),
+            direction: shap_val >= 0 ? 'positive' : 'negative'
+        });
+    });
+
+    const baseVal = SHAP_CONFIG.base_value;
+    const fx = baseVal + sumShap; // logit
+    const probability = 1 / (1 + Math.exp(-fx));
+
+    return {
+        base_value: baseVal,
+        sum_shap: sumShap,
+        fx: fx,
+        probability: probability,
+        contributions: contributions
+    };
+}
+
+function renderShapPatientExplanation(patientPayload) {
+    const shapResult = calculateShapValues(patientPayload);
+    const container = document.getElementById('shap-patient-container');
+    if (!container) return;
+
+    // 1. Update Stats Bar
+    const baseValEl = document.getElementById('shap-base-val');
+    const sumValEl = document.getElementById('shap-sum-val');
+    const fxValEl = document.getElementById('shap-fx-val');
+    const probValEl = document.getElementById('shap-prob-val');
+
+    if (baseValEl) baseValEl.textContent = shapResult.base_value.toFixed(4);
+    if (sumValEl) {
+        sumValEl.textContent = (shapResult.sum_shap >= 0 ? '+' : '') + shapResult.sum_shap.toFixed(4);
+        sumValEl.style.color = shapResult.sum_shap >= 0 ? '#ef4444' : '#3b82f6';
+    }
+    if (fxValEl) fxValEl.textContent = (shapResult.fx >= 0 ? '+' : '') + shapResult.fx.toFixed(4);
+    if (probValEl) {
+        const probPct = (shapResult.probability * 100).toFixed(1);
+        probValEl.textContent = `${probPct}%`;
+        probValEl.style.color = shapResult.probability >= 0.50 ? '#ef4444' : '#059669';
+    }
+
+    // Sort contributions by absolute SHAP value
+    const sortedContribs = [...shapResult.contributions].sort((a, b) => b.abs_shap - a.abs_shap);
+
+    // 2. Render Interactive Waterfall Chart
+    const waterfallChart = document.getElementById('shap-waterfall-chart');
+    if (waterfallChart) {
+        waterfallChart.innerHTML = '';
+        
+        // Find maximum absolute shap value for relative scaling
+        const maxAbs = Math.max(...sortedContribs.map(c => c.abs_shap), 1.0);
+
+        sortedContribs.forEach((c, idx) => {
+            const isPos = c.shap_value >= 0;
+            const barPct = Math.min(100, Math.max(4, (c.abs_shap / maxAbs) * 100));
+            const barColor = isPos ? '#ef4444' : '#3b82f6';
+            const sign = isPos ? '+' : '';
+
+            const row = document.createElement('div');
+            row.style.cssText = 'display: grid; grid-template-columns: 240px 1fr 90px; align-items: center; gap: 12px; font-size: 0.84rem; padding: 4px 0;';
+            row.innerHTML = `
+                <div style="font-weight: 600; color: #334155; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${c.label} = ${c.display_value}">
+                    ${c.label} <span style="font-weight: 400; color: #64748b; font-size: 0.78rem;">(${c.display_value})</span>
+                </div>
+                <div style="background: #f1f5f9; height: 18px; border-radius: 4px; overflow: hidden; position: relative;">
+                    <div style="height: 100%; width: ${barPct}%; background: ${barColor}; border-radius: 4px; transition: width 0.4s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 6px;">
+                    </div>
+                </div>
+                <div style="text-align: right; font-weight: 700; color: ${barColor}; font-family: monospace;">
+                    ${sign}${c.shap_value.toFixed(4)}
+                </div>
+            `;
+            waterfallChart.appendChild(row);
+        });
+
+        // Add Waterfall Footer Note
+        const footer = document.createElement('div');
+        footer.style.cssText = 'margin-top: 10px; padding-top: 10px; border-top: 1px dashed #e2e8f0; display: flex; justify-content: space-between; font-size: 0.78rem; color: #64748b;';
+        footer.innerHTML = `
+            <span>Base Value E[f(x)]: <strong>${shapResult.base_value.toFixed(4)}</strong></span>
+            <span>Net Sum: <strong>${(shapResult.sum_shap >= 0 ? '+' : '')}${shapResult.sum_shap.toFixed(4)}</strong></span>
+            <span>Final f(x): <strong>${(shapResult.fx >= 0 ? '+' : '')}${shapResult.fx.toFixed(4)}</strong></span>
+        `;
+        waterfallChart.appendChild(footer);
+    }
+
+    // 3. Render Top 5 Contributing Features Table
+    const top5Tbody = document.getElementById('shap-top5-tbody');
+    if (top5Tbody) {
+        top5Tbody.innerHTML = '';
+        const top5 = sortedContribs.slice(0, 5);
+
+        top5.forEach((c, idx) => {
+            const isPos = c.shap_value >= 0;
+            const sign = isPos ? '+' : '';
+            const dirBadge = isPos
+                ? `<span style="background: #fee2e2; color: #b91c1c; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.78rem;">↑ Increases Risk (+${c.abs_shap.toFixed(2)})</span>`
+                : `<span style="background: #dbeafe; color: #1d4ed8; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.78rem;">↓ Decreases Risk (-${c.abs_shap.toFixed(2)})</span>`;
+
+            // Clinical Explanation generator based on feature and direction
+            let explanation = '';
+            if (c.name === 'nWBV') {
+                explanation = isPos
+                    ? `Brain volume ratio (${c.display_value}) is substantially lower than cohort mean (0.736), indicating cerebral tissue loss / cortical atrophy.`
+                    : `Brain volume ratio (${c.display_value}) is preserved above normal mean (0.736), serving as a strong biological protector against dementia.`;
+            } else if (c.name === 'MMSE') {
+                explanation = isPos
+                    ? `Cognitive score (${c.display_value}/30) is below healthy mean (26.8), indicating clinical cognitive deficit.`
+                    : `High mental exam score (${c.display_value}/30) reflects intact cognitive orientation, memory, and calculation.`;
+            } else if (c.name === 'Memory_Complaints') {
+                explanation = isPos
+                    ? `Presence of active memory complaints is a primary symptomatic hallmark of early neurodegenerative risk.`
+                    : `Absence of reported memory complaints significantly lowers clinical risk index.`;
+            } else if (c.name === 'Functional_Score') {
+                explanation = isPos
+                    ? `Elevated functional difficulty score (${c.display_value}/10) reflects early loss of daily living independence (medications, finances).`
+                    : `Low functional impairment score (${c.display_value}/10) confirms preserved daily self-care and functional independence.`;
+            } else if (c.name === 'Age') {
+                explanation = isPos
+                    ? `Advanced age (${c.display_value} yrs) places the patient in an elevated demographic risk bracket.`
+                    : `Age (${c.display_value} yrs) is younger than cohort mean (74.3 yrs), conferring demographic protection.`;
+            } else if (c.name === 'Education_Years') {
+                explanation = isPos
+                    ? `Fewer years of formal education (${c.display_value} yrs) limits cognitive reserve protection.`
+                    : `High educational attainment (${c.display_value} yrs) strengthens cognitive reserve buffering.`;
+            } else {
+                explanation = isPos
+                    ? `Biomarker value of ${c.display_value} contributes positively to Alzheimer's risk logit.`
+                    : `Biomarker value of ${c.display_value} provides protective buffer reducing Alzheimer's risk logit.`;
+            }
+
+            const tr = document.createElement('tr');
+            tr.style.cssText = 'border-bottom: 1px solid #f1f5f9;';
+            tr.innerHTML = `
+                <td style="padding: 10px; font-weight: 700; color: #475569;">#${idx + 1}</td>
+                <td style="padding: 10px; font-weight: 600; color: #0f172a;">${c.label}</td>
+                <td style="padding: 10px; font-weight: 700; color: #0284c7;">${c.display_value}</td>
+                <td style="padding: 10px; font-weight: 700; font-family: monospace; color: ${isPos ? '#ef4444' : '#3b82f6'};">${sign}${c.shap_value.toFixed(4)}</td>
+                <td style="padding: 10px;">${dirBadge}</td>
+                <td style="padding: 10px; color: #475569; font-size: 0.82rem; line-height: 1.4;">${explanation}</td>
+            `;
+            top5Tbody.appendChild(tr);
+        });
+    }
 }
 
 // 6. Report Generation & Printing Modal
